@@ -1,0 +1,99 @@
+<odoo>
+  <data>
+  
+	<record id="education_student_view_tree" model="ir.ui.view">
+		<field name="name">education.student.tree</field>
+		<field name="model">education.student</field>
+		<field name="arch" type="xml">
+			<tree string="Student Tree">
+				<field name="name"/>
+				<field name="class_id"/>
+		</tree>
+		</field>
+	</record>
+  
+	<record id="view_education_student_form" model="ir.ui.view">
+		<field name="name">education.student.tree</field>
+		<field name="model">education.student</field>
+		<field name="arch" type="xml">
+			<form string="Student Form">
+				<sheet>
+					<div class="oe_title">
+						<h1>
+							<field name="name" placeholder="Name of the Sutdent"/>
+						</h1>
+					</div>
+					<group>
+						<group>
+							<field name="class_id"/>  
+							<field name="ethnicity_id"/>
+							<field name="country_id"/>
+							<field name="age"/>
+						</group>   	
+	              	</group>
+	              	<notebook>
+	              		<page name="ed_history" string="Education History">
+	              			<field name="class_ids">
+	              				<tree>
+	              					<field name="name"/>
+	              					<field name="create_date"/>
+	              					<field name="create_uid"/>
+	              				</tree>
+	              			</field>
+	              		</page> 
+	              	</notebook>
+				</sheet>
+          	</form>
+      	</field>
+  	</record>
+  	<record id="view_education_student_graph" model="ir.ui.view">
+		<field name="name">education.student.graph</field>
+		<field name="model">education.student</field>
+		<field name="arch" type="xml">
+		  	<graph string="Student Statistics">
+		  		<field name="name"/>
+			    <field name="class_id" type="measure"/>
+			    <field name="country_id"/>
+			    <field name="ethnicity_id"/>
+			</graph>
+		</field>
+	</record>
+	
+  	<record id="view_education_student_pivot" model="ir.ui.view">
+		<field name="name">education.student.pivot</field>
+		<field name="model">education.student</field>
+		<field name="arch" type="xml">
+		  	<pivot string="Student Statistics">
+			    <field name="class_id"/>
+			    <field name="country_id"/>
+			    <field name="ethnicity_id"/>
+			    <field name="age"/>
+			</pivot>
+		</field>
+	</record>
+  	
+  	<record id="view_education_student_search" model="ir.ui.view">
+		<field name="name">education.student.search</field>
+		<field name="model">education.student</field>
+		<field name="arch" type="xml">
+			<search string="Student Search">
+				<field name="name"/>
+				<separator />
+				<filter name="class_id"/>
+			</search>
+		</field>
+	</record>
+	<record id="education_student_action" model="ir.actions.act_window">
+		<field name="name">Student</field>
+		<field name="res_model">education.student</field>
+		<field name="view_mode">tree,form,graph,pivot</field>
+	     
+	</record> 
+	  
+	<menuitem id="education_student_menu" action="education_student_action" parent="menu_root" sequence="10"/>
+  </data>
+</odoo>
+
+
+
+

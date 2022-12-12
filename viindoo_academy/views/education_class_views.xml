@@ -1,0 +1,146 @@
+<odoo>
+  <data>
+  
+	<record id="education_class_view_tree" model="ir.ui.view">
+		<field name="name">education.class.tree</field>
+		<field name="model">education.class</field>
+		<field name="arch" type="xml">
+			<tree string="Class Tree">
+				<field name="name"/>
+				<field name="description"/>
+				<field name="students_count"/>
+				<field name="teacher_name"/>
+				<field name="state" decoration-primary="state == 'daft'" widget="badge"/> 
+			</tree>
+		</field>
+	</record>
+  
+	<record id="education_class_view_form" model="ir.ui.view">
+		<field name="name">education.class.tree</field>
+		<field name="model">education.class</field>
+		<field name="arch" type="xml">
+			<form string="Class Form">
+				<header>
+					<field name="state" widget="statusbar" optional="{'clickable':'1'}"/>
+				</header>
+				<sheet>
+					<div class="oe_title">
+						<h1>
+							<field name="name" placeholder="Please input name of class"/>
+						</h1>
+					</div>
+					<widget name="web_ribbon" title="Archived" 
+						bg_color="bg-danger" 
+						attrs="{'invisible': [('active', '=', True)]}" />
+					<group>
+						<group>
+							<field name="active" invisible="1"/>
+	              			<field name="teacher_name" placeholder="Please input name of Teacher"/>
+	              			<field name="company_id" string="Company"/>
+	              			<field name="start_date"/>
+	              			<field name="end_date"/>
+	              		</group>
+	              		<group>
+	              			<field name="students_count" string = "Number of Students"/>
+	              			<field name="historical_students_count" string="Number of Historical Student"/>
+	              		</group>
+	              	</group>
+	              	<group>
+	              		<field name="description"/>
+	              	</group>
+	              	<notebook>
+		              	<page name="student" string ="Students">
+		              		<field name="student_ids">
+		              			<tree>
+			              			<field name="name"/>
+			              			<field name="create_date"/>
+			              			<field name="create_uid"/>
+			              			
+		              			</tree>
+		              		</field>
+		              	</page>
+		              	<page name="students" string="Historical Students">
+		              		<field name="historical_student_ids">
+		              			<tree editable="bottom">
+		              				<field name="name"/>
+		              				<field name="create_date"/>
+		              				<field name="create_uid"/>
+		              			</tree>
+		              		</field>
+		              	</page>
+		              	<page name="documents" string="Attached Documents">
+		              		<group>
+		              		</group>
+		              	</page>          	
+	              	</notebook>
+	              	<group>
+	              		<field name="note" string="Note"/>
+	              	</group>
+				</sheet>
+          	</form>
+      	</field>
+  	</record>
+  	
+  	<record id="education_class_view_calendar" model="ir.ui.view">
+		<field name="name">education.class.calendar</field>
+		<field name="model">education.class</field>
+		<field name="arch" type="xml">
+		  	<calendar string="Education Class Calendar" date_start="start_date" date_stop="end_date" color="company_id">
+		  		<field name="name" filters="1"/>
+		  		<field name="start_date"/>
+		  		<field name="company_id"/>
+		  	</calendar>
+  		</field>
+  	</record>
+	
+  	<record id="view_education_class_pivot" model="ir.ui.view">
+		<field name="name">education.class.pivot</field>
+		<field name="model">education.class</field>
+		<field name="arch" type="xml">
+		  	<pivot string="Class Statistics">
+			    <field name="student_ids"/>
+			    <field name="country_id"/>
+			    <field name="company_id"/>
+			    <field name="start_date"/>
+			    <field name="end_date"/>
+			</pivot>
+		</field>
+	</record>
+  	
+  	<record id="education_class_view_search" model="ir.ui.view">
+		<field name="name">education.class.search</field>
+		<field name="model">education.class</field>
+		<field name="arch" type="xml">
+			<search string="Class Search">
+				<field name="name"/>
+				<field name="description"/>
+				<filter string="Draft" name="ftr_state_draft" 
+					domain="[('state','=','draft')]"/>
+				<filter string="Confirmed" name="ftr_state_confirmed" 
+					domain="[('state','=','confirmed')]"/>
+				<separator />
+				<filter string="Draft or Confirmed" name="ftr_draft_confirm" 
+					domain="[('state','in',('draft','confirmed'))]" />
+				<group expand="0" string="Group by">
+					<filter string="State" name="grp_state" 
+						context="{'group_by':'state'}"/>
+					<filter string="Create date" name="grp_create_date" 
+						context="{'group_by':'create_date'}"/>
+				</group>
+				
+			</search>
+		</field>
+	</record>
+	<record id="education_class_action" model="ir.actions.act_window">
+		<field name="name">Class</field>
+		<field name="res_model">education.class</field>
+		<field name="view_mode">tree,form,calendar,graph,pivot</field>
+	     
+	</record> 
+	  
+	<menuitem id="education_class_menu" action="education_class_action" parent="menu_root" sequence="10"/>
+  </data>
+</odoo>
+
+
+

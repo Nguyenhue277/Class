@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_education_class_employee,education_class_employee,model_education_class,base.group_user,1,1,1,1
+access_education_student_employee,education_student_employee,model_education_student,base.group_user,1,1,1,1
+access_education_ethnicity_employee,education_ethnicity_employee,model_education_ethnicity,base.group_user,1,1,1,1
+access_viindoo_academy_class_user,viindoo_academy_class_user,model_education_class,viindoo_academy.groups_user,1,1,1,1
